@@ -40,7 +40,7 @@ namespace Chat_SERVEUR
         public void Envoyer(string msg)
         {
             byte[] tmp = Encoding.Default.GetBytes(msg);
-            s.Send(tmp, tmp.Length, SocketFlags.None);
+            s.Send(tmp);
         }
 
         public void Ecoute()
@@ -54,17 +54,17 @@ namespace Chat_SERVEUR
                     int size = s.Receive(tmp, 4096, SocketFlags.None);
                     msg += Encoding.Default.GetString(tmp, 0, size);
 
-                    if ((msg[0] == '&') && (msg[1] == '&'))
+                    if ((msg[0] == '&'))
                     {
-                        Nom = msg;
+                        string[] msgNom = msg.Split(new char[] { '&' });
+                        Nom = msgNom[1];
                     }
 
                     foreach (Ecoute_Server item in ListeClient)
                     {
-                        if (item.s.RemoteEndPoint != s.RemoteEndPoint)
-                        {
-                            item.Envoyer((DateTime.Now.ToString("[HH:mm:ss] ") + Nom + " : " + msg));
-                        }
+                        
+                            item.Envoyer("\r\n" + (DateTime.Now.ToString("[HH:mm:ss] ") + Nom + " : " + msg));
+                        
                     } 
                 }
             }

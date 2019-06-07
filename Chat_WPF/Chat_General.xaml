@@ -9,6 +9,13 @@
       Title="Chat_General">
 
     <Grid Background="#FFFFFDF1">
-        
+        <ListView Name="ListeView_Conversation" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800" Margin="0,0,0,-0.4">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Page>

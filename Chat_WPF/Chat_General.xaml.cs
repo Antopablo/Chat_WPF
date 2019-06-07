@@ -20,6 +20,8 @@ namespace Chat_WPF
     /// </summary>
     public partial class Chat_General : Page
     {
+
+        public MainWindow mw;
         public Chat_General()
         {
             InitializeComponent();

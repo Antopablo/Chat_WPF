@@ -22,23 +22,25 @@ namespace Chat_WPF
     public partial class Connexion : Window
     {
         private MainWindow mw;
-        public Connexion()
+        public Connexion(MainWindow m)
         {
             InitializeComponent();
+            mw = m;
         }
 
         private void Valider_Connexion_Click(object sender, RoutedEventArgs e)
         {
             // envoyer son pseudo au serveur
-            TcpClient tcpClnt = new TcpClient();
+            TcpClient tcpClnt2 = new TcpClient();
             IPEndPoint EndPointServer = new IPEndPoint(IPAddress.Loopback, 5035);
-            tcpClnt.Connect(EndPointServer);
-            NetworkStream stm = tcpClnt.GetStream();
-            byte[] EnvoiPseudo = Encoding.Default.GetBytes("&&"+Champ_Pseudo.Text);
+            tcpClnt2.Connect(EndPointServer);
+            mw.tcpClnt = tcpClnt2;
+            NetworkStream stm = mw.tcpClnt.GetStream();
+            byte[] EnvoiPseudo = Encoding.Default.GetBytes("&"+Champ_Pseudo.Text);
             stm.Write(EnvoiPseudo, 0, EnvoiPseudo.Length);
-
+            Champ_Pseudo.Text = "";
+            mw.worker.RunWorkerAsync();
             this.Close();
-
         }
     }
 }

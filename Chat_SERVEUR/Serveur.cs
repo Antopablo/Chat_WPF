@@ -37,7 +37,8 @@ namespace Chat_SERVEUR
                     ListeClient.Add(clnt);
                     Thread th = new Thread(clnt.Ecoute);
                     th.Start();
-                } 
+                }
+                Thread.Sleep(1);
             }
         }
     }

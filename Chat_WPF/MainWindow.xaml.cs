@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -23,22 +24,57 @@ namespace Chat_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public BackgroundWorker worker;
+        public TcpClient tcpClnt;
+
         public MainWindow()
         {
             InitializeComponent();
-            TcpClient tcpClnt = new TcpClient();
-            IPEndPoint EndPointServer = new IPEndPoint(IPAddress.Loopback, 5035);
-            tcpClnt.Connect(EndPointServer);
-            NetworkStream stm = tcpClnt.GetStream();
-            Thread th = new Thread(ClientListener);
-            th.Start(tcpClnt);
+          
+
+            worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+            worker.DoWork += Worker_DoWork;
+            worker.ProgressChanged += Worker_ProgressChanged;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("ok");
+        }
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Fenetre_Chat_General_FRAME.Content += e.UserState.ToString();
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            NetworkStream strm = tcpClnt.GetStream();
+            int SizeBuffer = 4096;
+
+            while (true)
+            {
+                byte[] rep = new byte[SizeBuffer];
+                if (strm.DataAvailable)
+                {
+
+                    string reponse = "";
+                    int size = strm.Read(rep, 0, SizeBuffer);
+                    reponse = Encoding.Default.GetString(rep, 0, size);
+                    (sender as BackgroundWorker).ReportProgress(0, reponse);
+                }
+            }
         }
 
         private void Bouton_SeConnecter_Click(object sender, RoutedEventArgs e)
         {
             Bouton_SeConnecter.Visibility = Visibility.Collapsed;
             Bouton_SeDeconnecter.Visibility = Visibility.Visible;
-            Connexion c = new Connexion();
+            Connexion c = new Connexion(this);
             c.Show();
         }
 
@@ -48,15 +84,23 @@ namespace Chat_WPF
             Bouton_SeConnecter.Visibility = Visibility.Visible;
         }
 
-        public void ClientListener(object obj)
+
+        private void Bouton_SeConnecter_Loaded(object sender, RoutedEventArgs e)
         {
-            TcpClient tcpclnt = (TcpClient)obj;
-            NetworkStream strm = tcpclnt.GetStream();
-            byte[] rep = new byte[4096];
-            string reponse = "";
-            int size = strm.Read(rep, 0, 4096);
-            reponse += Encoding.Default.GetString(rep, 0, size);
-            User_MessageBox.Text = reponse;
+            
+        }
+
+        private void Fenetre_Chat_General_FRAME_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((Chat_General)Fenetre_Chat_General_FRAME.Content).mw = this;
+        }
+
+        private void Bouton_EnvoyerMessage_Click(object sender, RoutedEventArgs e)
+        {
+            NetworkStream stm = tcpClnt.GetStream();
+            byte[] EnvoiPseudo = Encoding.Default.GetBytes(User_MessageBox.Text);
+            stm.Write(EnvoiPseudo, 0, EnvoiPseudo.Length);
+            User_MessageBox.Text = "";
         }
     }
 }

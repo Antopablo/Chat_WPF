@@ -18,12 +18,12 @@
         </ListView>
         <TabControl HorizontalAlignment="Left" Height="280" Margin="164,67,0,0" VerticalAlignment="Top" Width="606">
             <TabItem Header="Général">
-                <Frame Name="Fenetre_Chat_General_FRAME" Source="Chat_General.xaml"></Frame>
+                <Frame Name="Fenetre_Chat_General_FRAME" Source="Chat_General.xaml" Loaded="Fenetre_Chat_General_FRAME_Loaded"></Frame>
             </TabItem>
         </TabControl>
         <TextBox Name="User_MessageBox" HorizontalAlignment="Left" Height="41" Margin="164,352,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="537" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" FontWeight="Bold" FontSize="14"/>
-        <Button Name="Bouton_EnvoyerMessage" Content="Envoyer" HorizontalAlignment="Left" Margin="706,352,0,0" VerticalAlignment="Top" Width="64" Height="41"/>
-        <Button Name="Bouton_SeConnecter" Content="Se Connecter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="136" Height="36" Click="Bouton_SeConnecter_Click"/>
+        <Button Name="Bouton_EnvoyerMessage" Content="Envoyer" HorizontalAlignment="Left" Margin="706,352,0,0" VerticalAlignment="Top" Width="64" Height="41" Click="Bouton_EnvoyerMessage_Click"/>
+        <Button Name="Bouton_SeConnecter" Content="Se Connecter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="136" Height="36" Click="Bouton_SeConnecter_Click" Loaded="Bouton_SeConnecter_Loaded"/>
         <Button Name="Bouton_SeDeconnecter" Content="Se Deconnecter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="136" Height="36" Visibility="Collapsed" Click="Bouton_SeDeconnecter_Click"/>
 
     </Grid>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Chat_WPF"
         mc:Ignorable="d"
         Title="Connexion" Height="450" Width="800">
-    <Grid>
+    <Grid Name="Grid_Connexion">
         <TextBox Name="Champ_Pseudo" HorizontalAlignment="Left" Height="77" Margin="115,119,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="525" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Button Name="Valider_Connexion" Content="Valider" HorizontalAlignment="Left" Margin="115,306,0,0" VerticalAlignment="Top" Width="525" Height="61" RenderTransformOrigin="0.5,0.5" Click="Valider_Connexion_Click"/>
     </Grid>
