@@ -1,0 +1,30 @@
+﻿<Window x:Class="Chat_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chat_WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="482.8" Width="812">
+    <Grid Margin="0,0,-0.4,0.6">
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="365" Margin="10,46,0,0" VerticalAlignment="Top" Width="774"/>
+
+        <ListView Name="ListeView_ClientCo" HorizontalAlignment="Left" Height="326" Margin="30,67,0,0" VerticalAlignment="Top" Width="116">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Connectés" Width="111"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TabControl HorizontalAlignment="Left" Height="280" Margin="164,67,0,0" VerticalAlignment="Top" Width="606">
+            <TabItem Header="Général">
+                <Frame Name="Fenetre_Chat_General_FRAME" Source="Chat_General.xaml"></Frame>
+            </TabItem>
+        </TabControl>
+        <TextBox Name="User_MessageBox" HorizontalAlignment="Left" Height="41" Margin="164,352,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="537" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" FontWeight="Bold" FontSize="14"/>
+        <Button Name="Bouton_EnvoyerMessage" Content="Envoyer" HorizontalAlignment="Left" Margin="706,352,0,0" VerticalAlignment="Top" Width="64" Height="41"/>
+        <Button Name="Bouton_SeConnecter" Content="Se Connecter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="136" Height="36" Click="Bouton_SeConnecter_Click"/>
+        <Button Name="Bouton_SeDeconnecter" Content="Se Deconnecter" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="136" Height="36" Visibility="Collapsed" Click="Bouton_SeDeconnecter_Click"/>
+
+    </Grid>
+</Window>
